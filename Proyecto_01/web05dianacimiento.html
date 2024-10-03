@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Calcular día</h1>
+    <label>Día</label>
+    <input type="text" id="cajanumero1"><br/> 
+    <label>Mes</label>
+    <input type="text" id="cajanumero2"><br/> 
+    <label>Año</label>
+    <input type="text" id="cajanumero3"><br/> 
+    <button id="botondia">Saber día</button>
+    <h1>Resultado:</h1>
+    <h1 id="resultado"></h1>
+
+    <script src="js/jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#botondia").click(function() {
+                var dia = parseInt($("#cajanumero1").val());
+                var mes = parseInt($("#cajanumero2").val());
+                var anio = parseInt($("#cajanumero3").val());
+                if (mes == 1){
+                    mes=13
+                    anio = anio--
+                }
+                if (mes == 2){
+                    mes=14
+                    anio = anio--
+                }
+
+                var semana = ["Sabado", "Domigo", "Lunes", "Martes", "Miercoles", "Jueves","Viernes"];
+        
+                var op1 = (((mes + 1) * 3) / 5);
+                console.log(op1)
+                var op2 = anio / 4;
+                console.log(op2)
+                var op3 = anio / 100;
+                console.log(op3)
+                var op4 = anio / 400;
+                console.log(op4)
+                var op5 = dia + (mes * 2) + anio + op1 + op2 - op3 + op4 + 2;
+                console.log(op5)
+                var op6 = Math.trunc(op5%7);
+                console.log(op6)
+                
+
+                $("#resultado").text(semana[op6]);
+
+                
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primer Jquery</title>
+    <style>
+        .azul{
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <!-- Comentarios dentro de este entorno
+    Control + k + c -->
+    <!-- Descomentar un comentario control + k + u  -->
+
+    <h1>Selectores Jquery</h1>
+    <button id="boton1">Pulsar para algo...</button>
+    <h2 class="azul">Soy un titulo en azul</h2>
+    <button class="azul">Boton azul</button>
+    <p>Aprendiendo JQUERY 1</p>
+    <p>Aprendiendo JQUERY 2</p>
+    <p>Aprendiendo JQUERY 3</p>
+    
+
+     <script src="js/jquery-3.7.1.js"></script>
+     <script>
+        //Aqui nuestro código JQUERY
+        //La primera linea dentro de Jquery sera
+        //Que realice las Acciones al cargar la Pagina
+        // $(document).ready(function(){
+        //     //alert("Mi primera app!!!");
+        //     $("h1").hide();
+        //     //Selector de ID
+        //     $("#boton1").hide();
+
+        // })
+        $("p").click(function() {
+            //Imprecindible para el desarrollo
+            //Front es lanzar mensajes en consola
+            console.log("Mostrando mensajes en consola web");
+            //Tenemos una palabra clave llama this
+            // que hace referencia al objeto que ha realizado
+            // la llamada al metodo
+            $(this).hide();
+        })
+        $("#boton1").click(function() {
+            alert("Soy un boton");
+        })
+     </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluar</title>
+</head>
+<body>
+    <h1>Evaluar números</h1>
+    <label>Número 1</label>
+    <input type="text" id="cajanumero1"><br/> 
+    <label>Número 2</label>
+    <input type="text" id="cajanumero2"><br/> 
+    <label>Número 3</label>
+    <input type="text" id="cajanumero3"><br/> 
+    <button id="botonevaluar">Evaluar números</button>
+    <h1>Resultado:</h1>
+    <h1 id="resultado"></h1>
+
+    <script src="js/jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#botonevaluar").click(function() {
+                var num1 = parseInt($("#cajanumero1").val());
+                var num2 = parseInt($("#cajanumero2").val());
+                var num3 = parseInt($("#cajanumero3").val());
+                var evaluacion = "";
+                var mayor, menor, intermedio;
+    
+                if (num1 >= num2 && num1 >= num3) {
+                    mayor = num1;
+                    intermedio = Math.max(num2, num3);
+                    menor = Math.min(num2, num3);
+                } else if (num2 >= num1 && num2 >= num3) {
+                    mayor = num2;
+                    intermedio = Math.max(num1, num3);
+                    menor = Math.min(num1, num3);
+                } else {
+                    mayor = num3;
+                    intermedio = Math.max(num1, num2);
+                    menor = Math.min(num1, num2);
+                }
+
+                evaluacion += "Mayor: " + mayor + " | Intermedio: " + intermedio + " | Menor: " + menor ;
+                $("#resultado").text(evaluacion);
+            });
+        });
+    </script>
+</body>
+</html>
+ 
