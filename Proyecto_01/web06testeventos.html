@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controles</title>
+</head>
+<body>
+    <h1>Controles dinámicos</h1>
+    <button id="boton1">Pulsar para hacer algo...</button><br>
+    <div id="prueba"></div><br>
+
+    <label>Introduzca un texto</label>
+    <input type="text" id="cajatexto">
+    <button id="botongenerar">Generar control</button><br>
+    <div id="contenedor"></div>
+
+    <script src="js/jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#boton1").click(function() {
+                alert("boton pulsado");
+                $("#prueba").html("<button id='miboton' onclick='mostrarMensaje()' >boton Nuevo</button>");
+
+                
+            });
+
+            $("#botongenerar").click(function() {
+               var texto = $("#cajatexto").val();
+               //Crearemos un parrafo por cada pulsacion
+               //Lo hacemos con Jquery para incluir un listener
+
+               var parrafo = $("<p>", {"text": texto,"style": "color:red"});
+                //Añadimos al contenedor el parrafo
+                $("#contenedor").append(parrafo);
+                //Incluimos un evento a cada parrafo generado
+                parrafo.click(function(){
+                    $(this).css("color","blue");
+                    $(this).text("Pulsado!!!!!");
+                })
+                
+            });
+
+            // $("#miboton").click(function() {
+            //     alert("boton nuevo pulsado");
+
+                
+            // });
+
+        });
+        function mostrarMensaje(){
+                alert("boton nuevo pulsado ");
+        }
+    </script>
+
+</body>
+</html>
