@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtros XML</title>
+</head>
+<body>
+    <h1>Filtros XML Alumnos</h1>
+    <label>Introduzca Nota</label>
+    <input type="text" id="cajanota"/>
+    <button id="botonbuscarnota">Buscar alumnos</button>
+    <hr/>
+    <h1 style="color: blue;" id="mensaje"></h1>
+    <table id="tablaAlumnos">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Nota</th>
+            </tr>
+        </thead>
+        <tbody id="cuerpoTabla">
+        </tbody>
+    </table>
+    
+    <script src="js/jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#botonbuscarnota").click(function(){
+                var notaBuscada = $("#cajanota").val(); 
+                $("#cuerpoTabla").html("");
+                $.get("documents/alumnos.xml", function(data){
+                    console.log("leyendo...");
+                    var html = "";
+                    $(data).find("alumno").each(function() {
+                        var nota = $(this).find("nota").text();
+                        
+                        if (nota >= notaBuscada) {
+                            var nombre = $(this).find("nombre").text();
+                            var apellido = $(this).find("apellidos").text();
+                            html += "<tr><td>" + nombre + "</td><td>" + apellido + "</td><td>" + nota + "</td></tr>";
+                        }
+                    });
+    
+                    if (html === "") {
+                        $("#mensaje").text("No existen alumnos con esa nota"); 
+                    } else {
+                        $("#cuerpoTabla").html(html);
+                        $("#mensaje").text("");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

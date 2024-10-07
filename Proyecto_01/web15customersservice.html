@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service</title>
+</head>
+<body>
+    <h1>Customer XML Service</h1>
+    <button id="botoncargar">Cargar customers</button>
+    <select id="selectcustom"></select>
+    <button id="botoncargardepartamentos">Cargar departamentos</button>
+    <h1 id="mensaje" style="color: goldenrod;"></h1>
+    <script src="js/jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            var url = "https://northwind.netcore.io/customers.xml"
+            $("#botoncargar").click(function(){
+                $.get(url,function(data){
+                    console.log("leyendo...")
+                    $(data).find("d2p1\\:Customer").length;
+                    $("#mensaje").text("Elementos :"+$(data).find("d2p1\\:Customer").length);
+                    $(data).find("d2p1\\:Customer").each(function(){
+                        var contacName = $(this).find("d2p1\\:ContactName").text();
+                        var option = $("<option>",{"text": contacName});
+                        
+                        $("#selectcustom").append(option);
+
+
+                    })
+                }) 
+            })
+
+            $("#botoncargardepartamentos").click(function(){
+                var url2 = "https://apicruddepartamentosxml.azurewebsites.net/api/Departamentos"
+                $.get(url2,function(data){
+                    console.log("leyendo...")
+                    $(data).find("Departamento").length;
+                    console.log($(data).find("Departamento").length)
+                })
+            })
+
+            $("#selectcustom").change(function(){
+                var nombre = $("#selectcustom").val();
+                $.get(url,function(data){
+                    console.log("Probando...")
+                    var filtro = "d2p1\\:ContactName:contains('"+nombre+"')";
+                    var html="";
+                    $(data).find(filtro).each(function(){
+                        var nodopadre = $(this).parent();
+                        var nombrecom = $(nodopadre).find("d2p1\\:CompanyName").text();
+                        html += "Nombre :"+ nombre + ", <br>"+ "Compañia :"+nombrecom;
+                    })
+                    $("#mensaje").html(html);
+                })
+            })
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Clientes XTML</h1>
+    <h1 id="nombres"></h1>
+    <h1 id="persona"></h1>
+    <img src="">
+    <script src="js/jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function () {
+        var url = "https://apiclientesxml.azurewebsites.net/api/Clientes"
+
+            $.get(url,function(data){
+                $(data).find("Cliente").each(function(){
+                    var contacName = $(this).find("Nombre").text();
+                    var botonnombre = $("<button>",{"text": contacName});
+                    $("#nombres").append(botonnombre);
+                })
+
+
+                $("button").click(function(){
+                    var nombre = $(this).text();
+                    var filtro = "Nombre:contains('"+nombre+"')";
+                    var html="";
+                    
+                    console.log("Prueba")
+                    $(data).find(filtro).each(function(){
+                        var nodopadre = $(this).parent();
+                        
+                        var email = $(nodopadre).find("Email").text();
+                        console.log(email)
+                        var imagen = $(nodopadre).find("Imagen").text();
+                        console.log(imagen)
+                        html += "<h1 style='color: brown;'>"+ nombre + "</h1> <br><p>"+ email+"</p><br> <img src='"+imagen+"'>";
+                    })
+                    $("#persona").append(html);
+                
+                })
+            })
+
+
+            // $("#botoncargardepartamentos").click(function(){
+            //     var url2 = "https://apicruddepartamentosxml.azurewebsites.net/api/Departamentos"
+            //     $.get(url2,function(data){
+            //         console.log("leyendo...")
+            //         $(data).find("Departamento").length;
+            //         console.log($(data).find("Departamento").length)
+            //     })
+            // })
+
+            // $("#selectcustom").change(function(){
+            //     var nombre = $("#selectcustom").val();
+            //     $.get(url,function(data){
+            //         console.log("Probando...")
+            //         var filtro = "d2p1\\:ContactName:contains('"+nombre+"')";
+            //         var html="";
+            //         $(data).find(filtro).each(function(){
+            //             var nodopadre = $(this).parent();
+            //             var nombrecom = $(nodopadre).find("d2p1\\:CompanyName").text();
+            //             html += "Nombre :"+ nombre + ", <br>"+ "Compañia :"+nombrecom;
+            //         })
+            //         $("#mensaje").html(html);
+            //     })
+            // })
+        })
+    </script>
+</body>
+</html>
