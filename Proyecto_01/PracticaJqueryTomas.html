@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica</title>
+</head>
+
+<body>
+    <h1>Practica JQUERY Alumnos</h1>
+    <select id="selectcursos"></select>
+    <ul id="listaalumnos"></ul>
+    <script src="js/jquery-3.7.1.js"></script>
+    <script>
+        var url = "https://apiejemplos.azurewebsites.net";
+        var apiCursos ="/api/Alumnos/Cursos";
+        var apiAlumnos ="/api/Alumnos";
+        var apiAlumnosCurso ="/api/Alumnos/FiltrarCurso/";
+        $(document).ready(function () {
+            console.log("Leyendo servicio");
+            loadCursos();
+            $("#selectcursos").change(function(){
+                var curso = $("#selectcursos").val();
+                // $.get(url+apiAlumnos, function (data) {
+                //     console.log("Leyendo servicio");
+                //     var html="";
+                //     $.each(data, function (index, alumno) {
+                //         if(alumno.idCurso == curso){
+                //             html += "<li>" + alumno.idCurso+" : " +alumno.nombre + " : " + alumno.apellidos + "</li>";
+                //         }
+                //     });
+                //     $("#listaalumnos").html(html);
+                // })
+                console.log(curso);
+                loadAlumnos(curso);
+            })
+                
+            
+        })
+        function loadCursos(){
+            $.getJSON(url+apiCursos, function(data){
+                $.each(data, function(Key,curso){
+                    var curso = curso;
+                    var option= $("<option>", {"text":curso , "value":curso});
+                    $("#selectcursos").append(option);
+                })
+            }) 
+        }
+        function loadAlumnos(curso){
+            $.get(url+apiAlumnosCurso+curso, function (data) {
+                    console.log("Leyendo servicio");
+                    var html="";
+                    $.each(data, function (index, alumno) {
+                        html += "<li>" + alumno.idCurso+" : " +alumno.nombre + " : " + alumno.apellidos + "</li>";
+                    });
+                    $("#listaalumnos").html(html);
+                })
+        }
+    </script>
+</body>
+
+</html>
